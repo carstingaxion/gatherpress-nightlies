@@ -1,8 +1,9 @@
 # GatherPress Nightly
 
-> 🚀 **Want to test the latest GatherPress features?**
+> [!TIP]
+> **Want to test the latest GatherPress features?**
 >
-> Download the latest nightly build from the [Releases](../../releases) page and help test what's coming next to gather.
+> Download the latest [gatherpress-nightly.zip][gatherpress-nightly-zip], [![Try it in WordPress Playground][playground-badge]][blueprint-nightly] or get it from the [Releases](../../releases) page and help test what's coming next to gather.
 
 ## What is this?
 
@@ -12,8 +13,8 @@ A new build is generated every day from the latest development code, making it e
 
 ## Installation
 
-1. Download the latest release from the [Releases](../../releases) page.
-2. Install it as a WordPress plugin.
+1. Download the latest [gatherpress-nightly.zip][gatherpress-nightly-zip] or get it from the [Releases](../../releases) page.
+2. Install as a normal WordPress plugin.
 3. Start testing.
 
 ## Automatic Updates
@@ -24,7 +25,8 @@ This allows test sites to stay current with the latest nightly release with mini
 
 ## Important
 
-⚠️ Nightly builds are development versions and may contain:
+> [!WARNING]
+> Nightly builds are development versions and may contain:
 
 * Bugs
 * Incomplete features
@@ -43,3 +45,7 @@ Please report it in the *main* [GatherPress/gatherpress](https://github.com/Gath
 - Replicated from the [Gutenberg Nightlies](https://github.com/Automattic/gutenberg-nightlies) project.
 - Credits & thanks to @bph for the idea!
 
+<!-- markdownlint-disable-next-line MD047 -->
+[gatherpress-nightly-zip]: https://github.com/GatherPress/gatherpress-nightlies/releases/latest/download/gatherpress-nightly.zip
+[playground-badge]: https://img.shields.io/badge/Try_it-in_WordPress_Playground-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9
+[blueprint-nightly]: https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/GatherPress/gatherpress/main/.wordpress-org/blueprints/blueprint-nightly.json
