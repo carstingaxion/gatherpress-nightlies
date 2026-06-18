@@ -14,6 +14,7 @@ jobs:
       commit_hash: ${{ steps.get_hash.outputs.hash }}
       gatherpress_version: ${{ steps.get_version.outputs.version }}
       nightly_version: ${{ steps.build_version_string.outputs.nightly_version }}
+      tag_exists: ${{ steps.check_tag.outputs.exists }}
 
     steps:
       - name: Checkout GatherPress repository
@@ -36,11 +37,24 @@ jobs:
         run: |
           echo "nightly_version=vnightly-${{ steps.get_version.outputs.version }}-${{ steps.get_hash.outputs.hash }}" >> $GITHUB_OUTPUT
 
+      - name: Check if nightly tag already exists
+        id: check_tag
+        run: |
+          TAG="${{ steps.build_version_string.outputs.nightly_version }}"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set Nightly Version
+        if: steps.check_tag.outputs.exists != 'true'
         run: |
           sed -i "s/Version: .*/Version: ${{ steps.build_version_string.outputs.nightly_version }}/g" gatherpress.php
 
       - name: Setup PHP
+        if: steps.check_tag.outputs.exists != 'true'
         uses: shivammathur/setup-php@v2
         with:
           php-version: latest
@@ -48,6 +62,7 @@ jobs:
           tools: wp-cli
 
       - name: Install dist-archive-command
+        if: steps.check_tag.outputs.exists != 'true'
         run: |
           # shivammathur/setup-php stores a GitHub OAuth token in Composer's
           # global auth config; wp-cli's bundled Composer rejects its format
@@ -58,6 +73,7 @@ jobs:
           wp package install wp-cli/dist-archive-command:^2
 
       - name: Install NodeJS
+        if: steps.check_tag.outputs.exists != 'true'
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
@@ -67,15 +83,18 @@ jobs:
           cache: 'npm'
 
       - name: NPM install
+        if: steps.check_tag.outputs.exists != 'true'
         run: npm ci
 
       - name: Build plugin
+        if: steps.check_tag.outputs.exists != 'true'
         # - [Incorrect version number used when creating zip archive · Issue #92 · wp-cli/dist-archive-command](https://github.com/wp-cli/dist-archive-command/issues/92)
         run: |
           npm run build
           wp dist-archive . ./gatherpress.zip
 
       - name: Upload artifact
+        if: steps.check_tag.outputs.exists != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: gatherpress-plugin
@@ -84,6 +103,7 @@ jobs:
   release:
     name: Create Release
     needs: build
+    if: needs.build.outputs.tag_exists != 'true'
     runs-on: ubuntu-latest
 
     steps:
