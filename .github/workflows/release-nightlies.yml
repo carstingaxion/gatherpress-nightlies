@@ -41,10 +41,18 @@ jobs:
         id: check_tag
         run: |
           TAG="${{ steps.build_version_string.outputs.nightly_version }}"
-          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
-            echo "exists='true'" >> "$GITHUB_OUTPUT"
+
+          echo "Checking tag: $TAG"
+          echo "Repo: ${{ github.repository }}"
+
+          if git ls-remote --exit-code --tags \
+            https://github.com/${{ github.repository }}.git \
+            "refs/tags/${TAG}"; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Tag exists"
           else
-            echo "exists='false'" >> "$GITHUB_OUTPUT"
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Tag does not exist"
           fi
 
       - name: Set Nightly Version
