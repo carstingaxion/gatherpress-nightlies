@@ -3,7 +3,9 @@
 > [!TIP]
 > **Want to test the latest GatherPress features?**
 >
-> Download the latest [gatherpress-nightly.zip][gatherpress-nightly-zip], [![Try it in WordPress Playground][playground-badge]][blueprint-nightly] or get it from the [Releases](../../releases) page and help test what's coming next to gather.
+> [![Try it in WordPress Playground][playground-badge]][blueprint-nightly]
+>
+> Download the latest [gatherpress-nightly.zip][gatherpress-nightly-zip] or get it from the [Releases](../../releases) page and help test what's coming next to gather.
 
 ## What is this?
 
