@@ -112,12 +112,12 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "${{ github.actor }}"
+          git config user.name GatherPress
           git config user.email "gatherpressnightlies@users.noreply.github.com"
 
       - name: Update previous-releases.txt
         run: |
-          git config --global user.name "${{ github.actor }}"
+          git config --global user.name GatherPress
           git config pull.rebase true
           git pull origin HEAD
           printf "${{ needs.build.outputs.nightly_version }}\n" >> previous-releases.txt
