@@ -17,6 +17,29 @@ A new build is generated every day from the latest development code, making it e
 2. Install as a normal WordPress plugin.
 3. Start testing.
 
+### Use it directly in Playground
+
+You might want to create a WordPress Playground with your plugin or theme and the latest development version of GatherPress for development and compatibility testing.
+
+```json
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+          "resource": "url",
+          "url": "https://github.com/GatherPress/gatherpress-nightlies/releases/latest/download/gatherpress-nightly.zip"
+      },
+      "options": {
+          "activate": true
+      }
+    }
+  ]
+}
+```
+
+
 ## Automatic Updates
 
 Nightly builds can be updated automatically using the [Git Updater](https://github.com/afragen/git-updater) plugin by **Andy Fragen**.
